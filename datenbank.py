@@ -5,9 +5,11 @@ import datetime
 def check(uid):
     connection = sqlite3.connect("Arbeiter")
     c = connection.cursor()
-
+    print(uid)
+    print([str(uid)])
     c.execute("SELECT * FROM Arbeiter WHERE UID = ?", ([str(uid)]))
     result = c.fetchone()
+    print(result)
     print(result[0])
     dname = result[0]
     return dname
