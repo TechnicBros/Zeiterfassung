@@ -15,7 +15,7 @@ def check(uid):
     connection.close()
 
 def test(dname):
-    connection = sqlite3.connect("Arbeitszeiten.db")
+    connection = sqlite3.connect("Arbeitszeiten")
     c = connection.cursor()
 
     c.execute("SELECT * FROM "+dname+" WHERE Abfahrtszeit = '00:00:00'")
@@ -31,7 +31,7 @@ def test(dname):
 
 def add(dname):
 
-    connection = sqlite3.connect("Arbeitszeiten.db")
+    connection = sqlite3.connect("Arbeitszeiten")
     c = connection.cursor()
 
     tag = datetime.date.today().strftime("%A")
@@ -50,7 +50,7 @@ def add(dname):
 
 def update(dname):
 
-    connection = sqlite3.connect("Arbeitszeiten.db")
+    connection = sqlite3.connect("Arbeitszeiten")
     c = connection.cursor()
 
     abfahrtszeit = time.strftime("%H:%M:%S")
@@ -71,7 +71,7 @@ def update(dname):
     connection.close()
 
 def read(dname):
-    connection = sqlite3.connect("Arbeitszeiten.db")
+    connection = sqlite3.connect("Arbeitszeiten")
     c = connection.cursor()
 
     c.execute("SELECT * FROM " + dname)

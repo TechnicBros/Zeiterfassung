@@ -1,5 +1,5 @@
 import sqlite3
-connection = sqlite3.connect("Arbeitszeiten.db")
+connection = sqlite3.connect("Arbeitszeiten")
 c = connection.cursor()
 
 sql_command = """
@@ -35,5 +35,18 @@ sql_command = """
 
 c.execute(sql_command)
 
+connection.commit()
+connection.close()
+
+connection = sqlite3.connect("Arbeiter")
+c = connection.cursor()
+
+sql_command = """
+CREATE TABLE Arbeiter ( 
+Name,
+UID,
+"""
+
+c.execute(sql_command)
 connection.commit()
 connection.close()

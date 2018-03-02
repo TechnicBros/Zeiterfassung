@@ -1,3 +1,3 @@
 # Zeiterfassung
 
-Ein Programm um die Arbeitszeit mit RFID Chips zu erfassen
+Ein Programm um die Arbeitszeit mit RFID Chips zu erfassen!
