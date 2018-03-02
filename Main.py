@@ -36,5 +36,5 @@ while continue_reading:
     if status == MIFAREReader.MI_OK:
         print("card detected")
     (status, uid) = MIFAREReader.MFRC522_Anticoll()
-    datenbank.check(uid)
+    print(uid)
     time.sleep(2)
