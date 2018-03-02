@@ -44,7 +44,7 @@ c = connection.cursor()
 sql_command = """
     CREATE TABLE Arbeiter ( 
     Name,
-    UID;
+    UID);
     """
 
 c.execute(sql_command)
