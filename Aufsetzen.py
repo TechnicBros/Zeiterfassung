@@ -42,10 +42,10 @@ connection = sqlite3.connect("Arbeiter")
 c = connection.cursor()
 
 sql_command = """
-CREATE TABLE Arbeiter ( 
-Name,
-UID,
-"""
+    CREATE TABLE Arbeiter ( 
+    Name,
+    UID,
+    """
 
 c.execute(sql_command)
 connection.commit()
