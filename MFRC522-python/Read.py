@@ -7,10 +7,6 @@ import signal
 import time
 import datenbank
 
-card1=[144, 171, 217, 217, 59]
-card2=[76, 156, 217, 217, 208]
-card3=[198, 19, 218, 217, 214]
-
 
 continue_reading = True
 
@@ -40,16 +36,8 @@ while continue_reading:
     if status == MIFAREReader.MI_OK:
        print ("card detected")
     # Get the UID of the card
-    (status,uid) = MIFAREReader.MFRC522_Anticoll()
-    
-    if card1 == uid:
-        print(uid)
-        time.sleep(1)
-    if card2 == uid:
-        print(uid)
-        time.sleep(1)
-    if card3 == uid:
-        print(uid)
-        time.sleep(1)
+    uid = MIFAREReader.MFRC522_Anticoll()
+    datenbank.check()
+    time.sleep(2)
 
 
