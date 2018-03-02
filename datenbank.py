@@ -2,7 +2,37 @@ import sqlite3
 import time
 import datetime
 
-def add1():
+def check(uid):
+    connection = sqlite3.connect("Arbeiter")
+
+    c = connection.cursor()
+
+    c.execute("SELECT * FROM Arbeiter WHERE UID = ?", (uid))
+    result = c.fetchone()
+    print(result[0] + "hi")
+    dname = result[0]
+    return dname
+    connection.commit()
+    connection.close()
+
+def test(dname):
+    connection = sqlite3.connect("Arbeitszeiten.db")
+
+    c = connection.cursor()
+
+    c.execute("SELECT * FROM "+dname+" WHERE Abfahrtszeit = '00:00:00'")
+    result = c.fetchone()
+    try:
+        if result[3] == "00:00:00":
+            update(dname)
+    except:
+        add(dname)
+
+    connection.commit()
+
+    connection.close()
+
+def add(dname):
 
     connection = sqlite3.connect("Arbeitszeiten.db")
     c = connection.cursor()
@@ -15,73 +45,29 @@ def add1():
     zeitstempel = time.time()
 
 
-    c.execute("INSERT INTO Arbeiter1 (Tag, Datum, Ankunftszeit, Abfahrtszeit, Zeitstempel, Arbeitszeit) VALUES (?, ?, ?, ?, ?)",
+    c.execute("INSERT INTO "+dname+" (Tag, Datum, Ankunftszeit, Abfahrtszeit, Zeitstempel, Arbeitszeit) VALUES (?, ?, ?, ?, ?, ?)",
           (tag, datum, ankunftszeit, abfahrtszeit, zeitstempel, arbeitszeit))
 
     connection.commit()
 
     connection.close()
 
-def add2():
-
-    connection = sqlite3.connect("Arbeitszeiten.db")
-    c = connection.cursor()
-
-    tag = datetime.date.today().strftime("%A")
-    datum = datetime.date.today()
-    ankunftszeit = time.strftime("%H:%M:%S")
-    abfahrtszeit = "00:00:00"
-    arbeitszeit = "0"
-    zeitstempel = time.time()
-
-
-    c.execute("INSERT INTO Arbeiter2 (Tag, Datum, Ankunftszeit, Abfahrtszeit, Zeitstempel, Arbeitszeit) VALUES (?, ?, ?, ?, ?, ?)",
-          (tag, datum, ankunftszeit, abfahrtszeit, zeitstempel, arbeitszeit))
-
-    connection.commit()
-
-    connection.close()
-
-def update1():
+def update(dname):
 
     connection = sqlite3.connect("Arbeitszeiten.db")
     c = connection.cursor()
 
     abfahrtszeit = time.strftime("%H:%M:%S")
 
-    c.execute('SELECT * FROM Arbeiter1 WHERE Abfahrtszeit = "00:00:00"')
+    c.execute("SELECT * FROM "+dname+" WHERE Abfahrtszeit = '00:00:00'")
     zeitstempel = c.fetchone()[4]
     print(zeitstempel)
     zeitjetzt = time.time()
     arbeitszeit = zeitjetzt - zeitstempel
     arbeitszeit = arbeitszeit / 60
-    c.execute("UPDATE Arbeiter1 SET Arbeitszeit = ? WHERE Abfahrtszeit = '00:00:00'",
+    c.execute("UPDATE "+dname+" SET Arbeitszeit = ? WHERE Abfahrtszeit = '00:00:00'",
               ([int(arbeitszeit)]))
-    c.execute("UPDATE Arbeiter1 SET Abfahrtszeit = ? WHERE Abfahrtszeit = '00:00:00'",
-              ([abfahrtszeit]))
-
-
-    connection.commit()
-
-    connection.close()
-
-
-def update2():
-
-    connection = sqlite3.connect("Arbeitszeiten.db")
-    c = connection.cursor()
-
-    abfahrtszeit = time.strftime("%H:%M:%S")
-
-    c.execute('SELECT * FROM Arbeiter2 WHERE Abfahrtszeit = "00:00:00"')
-    zeitstempel = c.fetchone()[4]
-    print(zeitstempel)
-    zeitjetzt = time.time()
-    arbeitszeit = zeitjetzt - zeitstempel
-    arbeitszeit = arbeitszeit / 60
-    c.execute("UPDATE Arbeiter2 SET Arbeitszeit = ? WHERE Abfahrtszeit = '00:00:00'",
-              ([int(arbeitszeit)]))
-    c.execute("UPDATE Arbeiter2 SET Abfahrtszeit = ? WHERE Abfahrtszeit = '00:00:00'",
+    c.execute("UPDATE "+dname+" SET Abfahrtszeit = ? WHERE Abfahrtszeit = '00:00:00'",
               ([abfahrtszeit]))
 
 
@@ -93,24 +79,24 @@ def update2():
 def read():
     connection = sqlite3.connect("Arbeitszeiten.db")
 
-    cursor = connection.cursor()
+    c = connection.cursor()
 
-    cursor.execute("SELECT * FROM Arbeiter1")
+    c.execute("SELECT * FROM Arbeiter1")
     print("Arbeiter1:")
-    result = cursor.fetchall()
+    result = c.fetchall()
     for r in result:
         print(r)
 
-    cursor.execute("SELECT * FROM Arbeiter2")
+    c.execute("SELECT * FROM Arbeiter2")
     print("Arbeiter2:")
-    result = cursor.fetchall()
+    result = c.fetchall()
     for r in result:
         print(r)
 
 def create():
     connection = sqlite3.connect("Arbeitszeiten.db")
 
-    cursor = connection.cursor()
+    c = connection.cursor()
 
     sql_command = """
     CREATE TABLE Arbeiter1 ( 
@@ -121,7 +107,7 @@ def create():
     Zeitstempel,
     Arbeitszeit);"""
 
-    cursor.execute(sql_command)
+    c.execute(sql_command)
 
     sql_command = """
     CREATE TABLE Arbeiter2 ( 
@@ -132,7 +118,7 @@ def create():
     Zeitstempel,
     Arbeitszeit);"""
 
-    cursor.execute(sql_command)
+    c.execute(sql_command)
 
     connection.commit()
     connection.close()
