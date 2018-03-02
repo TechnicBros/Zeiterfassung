@@ -8,6 +8,7 @@ def check(uid):
 
     c.execute("SELECT * FROM Arbeiter WHERE UID = ?", ([str(uid)]))
     result = c.fetchone()
+    print(result[0])
     dname = result[0]
     return dname
     
