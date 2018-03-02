@@ -4,20 +4,18 @@ import datetime
 
 def check(uid):
     connection = sqlite3.connect("Arbeiter")
-
     c = connection.cursor()
 
-    c.execute("SELECT * FROM Arbeiter WHERE UID = ?", (uid))
+    c.execute("SELECT * FROM Arbeiter WHERE UID = ?", ([uid]))
     result = c.fetchone()
-    print(result[0] + "hi")
     dname = result[0]
     return dname
+    
     connection.commit()
     connection.close()
 
 def test(dname):
     connection = sqlite3.connect("Arbeitszeiten.db")
-
     c = connection.cursor()
 
     c.execute("SELECT * FROM "+dname+" WHERE Abfahrtszeit = '00:00:00'")
@@ -29,7 +27,6 @@ def test(dname):
         add(dname)
 
     connection.commit()
-
     connection.close()
 
 def add(dname):
@@ -49,7 +46,6 @@ def add(dname):
           (tag, datum, ankunftszeit, abfahrtszeit, zeitstempel, arbeitszeit))
 
     connection.commit()
-
     connection.close()
 
 def update(dname):
@@ -72,53 +68,17 @@ def update(dname):
 
 
     connection.commit()
-
     connection.close()
 
-
-def read():
+def read(dname):
     connection = sqlite3.connect("Arbeitszeiten.db")
-
     c = connection.cursor()
 
-    c.execute("SELECT * FROM Arbeiter1")
-    print("Arbeiter1:")
+    c.execute("SELECT * FROM " + dname)
+    print(dname + ":")
     result = c.fetchall()
     for r in result:
         print(r)
-
-    c.execute("SELECT * FROM Arbeiter2")
-    print("Arbeiter2:")
-    result = c.fetchall()
-    for r in result:
-        print(r)
-
-def create():
-    connection = sqlite3.connect("Arbeitszeiten.db")
-
-    c = connection.cursor()
-
-    sql_command = """
-    CREATE TABLE Arbeiter1 ( 
-    Tag, 
-    Datum DATE, 
-    Ankunftszeit,
-    Abfahrtszeit,
-    Zeitstempel,
-    Arbeitszeit);"""
-
-    c.execute(sql_command)
-
-    sql_command = """
-    CREATE TABLE Arbeiter2 ( 
-    Tag, 
-    Datum DATE, 
-    Ankunftszeit, 
-    Abfahrtszeit,
-    Zeitstempel,
-    Arbeitszeit);"""
-
-    c.execute(sql_command)
 
     connection.commit()
     connection.close()
