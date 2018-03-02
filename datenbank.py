@@ -6,7 +6,7 @@ def check(uid):
     connection = sqlite3.connect("Arbeiter")
     c = connection.cursor()
 
-    c.execute("SELECT * FROM Arbeiter WHERE UID = ?", ([uid]))
+    c.execute("SELECT * FROM Arbeiter WHERE UID = ?", (int(uid)))
     result = c.fetchone()
     dname = result[0]
     return dname
