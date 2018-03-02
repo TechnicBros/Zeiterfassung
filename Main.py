@@ -37,5 +37,5 @@ while continue_reading:
        print ("card detected")
     # Get the UID of the card
     uid = MIFAREReader.MFRC522_Anticoll()
-    datenbank.check()
+    datenbank.check(uid)
     time.sleep(2)
