@@ -41,7 +41,7 @@ while continue_reading:
             uid = str(uid[0]) + str(uid[1]) + str(uid[2]) + str(uid[3]) + str(uid[4])
         else:
             uid = str(uid[0]) + str(uid[1]) + str(uid[2]) + str(uid[3])
-        print(uid)
+        print("uid: " + uid)
         dname = datenbank.check(uid)
         datenbank.test(dname)
         time.sleep(5)
