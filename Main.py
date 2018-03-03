@@ -38,6 +38,7 @@ while continue_reading:
     (status, uid) = MIFAREReader.MFRC522_Anticoll()
     if status == MIFAREReader.MI_OK:
         uid = uid[0:15]
+        print(uid)
         dname = datenbank.check(uid)
         datenbank.test(dname)
         time.sleep(5)
