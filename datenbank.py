@@ -7,7 +7,6 @@ def check(uid):
     c = connection.cursor()
     c.execute("SELECT * FROM Arbeiter WHERE UID = ?", [uid])
     result = c.fetchone()
-    print(result[0])
     dname = result[0]
     return dname
     
@@ -44,7 +43,7 @@ def add(dname):
 
     c.execute("INSERT INTO "+dname+" (Tag, Datum, Ankunftszeit, Abfahrtszeit, Zeitstempel, Arbeitszeit) VALUES (?, ?, ?, ?, ?, ?)",
           (tag, datum, ankunftszeit, abfahrtszeit, zeitstempel, arbeitszeit))
-
+    print(dname + "ist gekommen")
     connection.commit()
     connection.close()
 
@@ -66,7 +65,7 @@ def update(dname):
     c.execute("UPDATE "+dname+" SET Abfahrtszeit = ? WHERE Abfahrtszeit = '00:00:00'",
               ([abfahrtszeit]))
 
-
+    print(dname + "ist gegangen")
     connection.commit()
     connection.close()
 
