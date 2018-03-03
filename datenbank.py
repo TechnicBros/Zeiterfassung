@@ -43,7 +43,7 @@ def add(dname):
 
     c.execute("INSERT INTO "+dname+" (Tag, Datum, Ankunftszeit, Abfahrtszeit, Zeitstempel, Arbeitszeit) VALUES (?, ?, ?, ?, ?, ?)",
           (tag, datum, ankunftszeit, abfahrtszeit, zeitstempel, arbeitszeit))
-    print(dname + "ist gekommen")
+    print(dname + " kommt")
     connection.commit()
     connection.close()
 
@@ -56,7 +56,6 @@ def update(dname):
 
     c.execute("SELECT * FROM "+dname+" WHERE Abfahrtszeit = '00:00:00'")
     zeitstempel = c.fetchone()[4]
-    print(zeitstempel)
     zeitjetzt = time.time()
     arbeitszeit = zeitjetzt - zeitstempel
     arbeitszeit = arbeitszeit / 60
@@ -65,7 +64,7 @@ def update(dname):
     c.execute("UPDATE "+dname+" SET Abfahrtszeit = ? WHERE Abfahrtszeit = '00:00:00'",
               ([abfahrtszeit]))
 
-    print(dname + "ist gegangen")
+    print(dname + " geht")
     connection.commit()
     connection.close()
 
