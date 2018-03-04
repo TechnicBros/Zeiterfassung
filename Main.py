@@ -39,4 +39,4 @@ while continue_reading:
         print("uid: " + uid)
         dname = datenbank.check(uid)
         datenbank.test(dname)
-        time.sleep(5)
+        time.sleep(3)

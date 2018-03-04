@@ -1,6 +1,7 @@
 import sqlite3
 import time
 import datetime
+import RPi.GPIO as GPIO
 
 def check(uid):
     connection = sqlite3.connect("Arbeiter")
@@ -47,6 +48,12 @@ def add(dname):
     connection.commit()
     connection.close()
 
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(13, GPIO.OUT)
+    GPIO.output(13, GPIO.HIGH)
+    time.sleep(3)
+    GPIO.output(13, GPIO.LOW)
+
 def update(dname):
 
     connection = sqlite3.connect("Arbeitszeiten")
@@ -63,10 +70,16 @@ def update(dname):
               ([int(arbeitszeit)]))
     c.execute("UPDATE "+dname+" SET Abfahrtszeit = ? WHERE Abfahrtszeit = '00:00:00'",
               ([abfahrtszeit]))
-
     print(dname + " geht")
     connection.commit()
     connection.close()
+
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(26, GPIO.OUT)
+    GPIO.output(26, GPIO.HIGH)
+    time.sleep(3)
+    GPIO.output(26, GPIO.LOW)
+
 
 def read(dname):
     connection = sqlite3.connect("Arbeitszeiten")
