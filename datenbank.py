@@ -3,18 +3,21 @@ import time
 import datetime
 import RPi.GPIO as GPIO
 
-def check(uid):
-    connection = sqlite3.connect("Arbeiter")
-    c = connection.cursor()
-    c.execute("SELECT * FROM Arbeiter WHERE UID = ?", [uid])
-    result = c.fetchone()
-    dname = result[0]
-    return dname
-    
-    connection.commit()
-    connection.close()
+def get(uid):
+    try:
+        connection = sqlite3.connect("Arbeiter")
+        c = connection.cursor()
+        c.execute("SELECT * FROM Arbeiter WHERE UID = ?", [uid])
+        result = c.fetchone()
+        dname = result[0]
+        return dname
 
-def test(dname):
+        connection.commit()
+        connection.close()
+    except IOError:
+        print("Die UID konnte nicht zugeordnet werden!")
+
+def check(dname):
     connection = sqlite3.connect("Arbeitszeiten")
     c = connection.cursor()
 
