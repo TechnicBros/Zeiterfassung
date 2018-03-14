@@ -10,6 +10,7 @@ def get(uid):
         c.execute("SELECT * FROM Arbeiter WHERE UID = ?", [uid])
         result = c.fetchone()
         dname = str(result[0])
+        print(str(dname))
         return dname
 
         connection.commit()
