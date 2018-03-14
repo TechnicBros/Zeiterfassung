@@ -25,7 +25,7 @@ def check(dname):
     c.execute("SELECT * FROM "+dname+" WHERE Abfahrtszeit = '00:00:00'")
     result = c.fetchone()
     try:
-        if result[3] == "00:00:00":
+        if str(result[3]) == "00:00:00":
             update(dname)
     except:
         add(dname)
