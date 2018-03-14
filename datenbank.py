@@ -9,7 +9,7 @@ def get(uid):
         c = connection.cursor()
         c.execute("SELECT * FROM Arbeiter WHERE UID = ?", [uid])
         result = c.fetchone()
-        dname = result[0]
+        dname = str(result[0])
         return dname
 
         connection.commit()
