@@ -36,9 +36,8 @@ while continue_reading:
     (status, uid) = MIFAREReader.MFRC522_Anticoll()
     if status == MIFAREReader.MI_OK:
         uid = str(uid[0]) + str(uid[1]) + str(uid[2]) + str(uid[3]) + str(uid[4])
-        print("uid: " + uid)
         dname = datenbank.get(uid)
-        if str(dname) == None:
+        if dname == None:
             print("Die UID: " + uid + " konnte nicht zugeordnet werden!")
         else:
-            datenbank.check(dname)
+            datenbank.check(dname, uid)

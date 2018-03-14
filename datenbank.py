@@ -10,7 +10,6 @@ def get(uid):
         c.execute("SELECT * FROM Arbeiter WHERE UID = ?", [uid])
         result = c.fetchone()
         dname = str(result[0])
-        print(str(dname))
         return dname
 
         connection.commit()
@@ -18,7 +17,7 @@ def get(uid):
     except:
         pass
 
-def check(dname):
+def check(dname, uid):
     connection = sqlite3.connect("Arbeitszeiten")
     c = connection.cursor()
 
@@ -26,14 +25,14 @@ def check(dname):
     result = c.fetchone()
     try:
         if result[3] == "00:00:00":
-            update(dname)
+            update(dname, uid)
     except:
-        add(dname)
+        add(dname, uid)
 
     connection.commit()
     connection.close()
 
-def add(dname):
+def add(dname, uid):
 
     connection = sqlite3.connect("Arbeitszeiten")
     c = connection.cursor()
@@ -48,7 +47,7 @@ def add(dname):
 
     c.execute("INSERT INTO "+dname+" (Tag, Datum, Ankunftszeit, Abfahrtszeit, Zeitstempel, Arbeitszeit) VALUES (?, ?, ?, ?, ?, ?)",
           (tag, datum, ankunftszeit, abfahrtszeit, zeitstempel, arbeitszeit))
-    print(dname + " kommt")
+    print(dname + "mit der UID: " + uid + " kommt")
     connection.commit()
     connection.close()
 
@@ -58,7 +57,7 @@ def add(dname):
     time.sleep(3)
     GPIO.output(33, GPIO.LOW)
 
-def update(dname):
+def update(dname, uid):
 
     connection = sqlite3.connect("Arbeitszeiten")
     c = connection.cursor()
@@ -74,7 +73,7 @@ def update(dname):
               ([int(arbeitszeit)]))
     c.execute("UPDATE "+dname+" SET Abfahrtszeit = ? WHERE Abfahrtszeit = '00:00:00'",
               ([abfahrtszeit]))
-    print(dname + " geht")
+    print(dname + "mit der UID: " + uid + " geht")
     connection.commit()
     connection.close()
 
