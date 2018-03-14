@@ -51,11 +51,11 @@ def add(dname):
     connection.commit()
     connection.close()
 
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(13, GPIO.OUT)
-    GPIO.output(13, GPIO.HIGH)
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(33, GPIO.OUT)
+    GPIO.output(33, GPIO.HIGH)
     time.sleep(3)
-    GPIO.output(13, GPIO.LOW)
+    GPIO.output(33, GPIO.LOW)
 
 def update(dname):
 
@@ -77,11 +77,11 @@ def update(dname):
     connection.commit()
     connection.close()
 
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(26, GPIO.OUT)
-    GPIO.output(26, GPIO.HIGH)
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(37, GPIO.OUT)
+    GPIO.output(37, GPIO.HIGH)
     time.sleep(3)
-    GPIO.output(26, GPIO.LOW)
+    GPIO.output(37, GPIO.LOW)
 
 
 def read(dname):
