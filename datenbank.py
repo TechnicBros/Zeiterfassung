@@ -15,7 +15,6 @@ def get(uid):
         connection.commit()
         connection.close()
     except:
-        print("Die UID konnte nicht zugeordnet werden!")
         pass
 
 def check(dname):

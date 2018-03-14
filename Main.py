@@ -39,7 +39,6 @@ while continue_reading:
         print("uid: " + uid)
         dname = datenbank.get(uid)
         if dname == "":
-            datenbank.check(dname)
+            print("Die UID: " + uid + " konnte nicht zugeordnet werden!")
         else:
-            print("Die UID konnte nicht zugeordnet werden!")
-
+            datenbank.check(dname)
