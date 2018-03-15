@@ -39,5 +39,14 @@ while continue_reading:
         dname = datenbank.get(uid)
         if dname == None:
             print("Die UID: " + uid + " konnte nicht zugeordnet werden!")
+            GPIO.setmode(GPIO.BOARD)
+            GPIO.setup(37, GPIO.OUT)
+            GPIO.output(37, GPIO.HIGH)
+            time.sleep(0,5)
+            GPIO.output(37, GPIO.LOW)
+            time.sleep(0, 5)
+            GPIO.output(37, GPIO.HIGH)
+            time.sleep(0, 5)
+            GPIO.output(37, GPIO.LOW)
         else:
             datenbank.check(dname, uid)
