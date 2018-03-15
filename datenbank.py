@@ -47,7 +47,7 @@ def add(dname, uid):
 
     c.execute("INSERT INTO "+dname+" (Tag, Datum, Ankunftszeit, Abfahrtszeit, Zeitstempel, Arbeitszeit) VALUES (?, ?, ?, ?, ?, ?)",
           (tag, datum, ankunftszeit, abfahrtszeit, zeitstempel, arbeitszeit))
-    print(dname + "mit der UID: " + uid + " kommt")
+    print(dname + "(UID:" + uid + ") kommt")
     connection.commit()
     connection.close()
 
@@ -73,7 +73,7 @@ def update(dname, uid):
               ([int(arbeitszeit)]))
     c.execute("UPDATE "+dname+" SET Abfahrtszeit = ? WHERE Abfahrtszeit = '00:00:00'",
               ([abfahrtszeit]))
-    print(dname + "mit der UID: " + uid + " geht")
+    print(dname + "(UID:" + uid + ") geht")
     connection.commit()
     connection.close()
 
