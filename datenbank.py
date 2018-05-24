@@ -5,7 +5,7 @@ import RPi.GPIO as GPIO
 
 def get(uid):
     try:
-        connection = sqlite3.connect("Arbeiter")
+        connection = sqlite3.connect("Datenbanken/Arbeiter.db")
         c = connection.cursor()
         c.execute("SELECT * FROM Arbeiter WHERE UID = ?", [uid])
         result = c.fetchone()
@@ -18,7 +18,7 @@ def get(uid):
         pass
 
 def check(dname, uid):
-    connection = sqlite3.connect("Arbeitszeiten")
+    connection = sqlite3.connect("Datenbanken/Arbeitszeiten.db")
     c = connection.cursor()
 
     c.execute("SELECT * FROM "+dname+" WHERE Abfahrtszeit = '00:00:00'")
@@ -34,7 +34,7 @@ def check(dname, uid):
 
 def add(dname, uid):
 
-    connection = sqlite3.connect("Arbeitszeiten")
+    connection = sqlite3.connect("Datenbanken/Arbeitszeiten.db")
     c = connection.cursor()
 
     tag = datetime.date.today().strftime("%A")
@@ -59,7 +59,7 @@ def add(dname, uid):
 
 def update(dname, uid):
 
-    connection = sqlite3.connect("Arbeitszeiten")
+    connection = sqlite3.connect("Datenbanken/Arbeitszeiten.db")
     c = connection.cursor()
 
     abfahrtszeit = time.strftime("%H:%M:%S")
@@ -68,9 +68,9 @@ def update(dname, uid):
     zeitstempel = c.fetchone()[4]
     zeitjetzt = time.time()
     arbeitszeit = zeitjetzt - zeitstempel
-    arbeitszeit = arbeitszeit / 60
+    arbeitszeit = arbeitszeit // 60
     c.execute("UPDATE "+dname+" SET Arbeitszeit = ? WHERE Abfahrtszeit = '00:00:00'",
-              ([int(arbeitszeit)]))
+              ([arbeitszeit]))
     c.execute("UPDATE "+dname+" SET Abfahrtszeit = ? WHERE Abfahrtszeit = '00:00:00'",
               ([abfahrtszeit]))
     print(dname + "(UID:" + uid + ") geht")
@@ -85,7 +85,7 @@ def update(dname, uid):
 
 
 def read(dname):
-    connection = sqlite3.connect("Arbeitszeiten")
+    connection = sqlite3.connect("Datenbanken/Arbeitszeiten.db")
     c = connection.cursor()
 
     c.execute("SELECT * FROM " + dname)
